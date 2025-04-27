@@ -1,17 +1,29 @@
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
-import {ReactElement} from "react";
+import { ReactElement } from "react";
+
+// Layout Elements
+import { Footer, Sidebar } from "./component/LayoutElements.tsx";
+
 import Home from "./pages/Home.tsx";
-
-
+import About from "./pages/About.tsx";
 
 function App() {
-	const Layout = () => {
+	const Layout = (): ReactElement => {
 		return (
-			<>
-				<main className="grow bg-white">
-					<Outlet />
-				</main>
-			</>
+			<div className="flex h-screen flex-col">
+				<div className="flex h-screen flex-row">
+					<Sidebar content={ [
+							<p> Home </p>,
+							<p> Photos </p>,
+							<p> API </p>,
+							<p> About </p>
+						] } tabPosition="middle"/>
+					<main className="grow">
+						<Outlet/>
+					</main>
+				</div>
+				<Footer/>
+			</div>
 		)
 	}
 
@@ -19,8 +31,9 @@ function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<Layout />}>
-					<Route index element={<Home />} />
+				<Route path="/" element={ <Layout/> }>
+					<Route index element={ <Home/> }/>
+					<Route path="about" element={ <About/> }/>
 				</Route>
 			</Routes>
 		</BrowserRouter>
