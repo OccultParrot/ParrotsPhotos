@@ -10,6 +10,9 @@ interface SidebarProps {
 export function Sidebar( props: SidebarProps ) {
 	const [open, setOpen] = useState(props.defaultOpen ?? false);
 
+	const sidebarTabPositionString = props.tabPosition === 'top' ? 'top-0 mt-2' : props.tabPosition === 'middle' ? 'top-1/2 -translate-y-1/2' : 'bottom-0 mb-2';
+
+	// Function to render the content of the sidebar
 	const sidebarListContent = (content: ReactNode, index: number) => {
 		return (
 			<li className="mt-2" key={index}>
@@ -44,7 +47,7 @@ export function Sidebar( props: SidebarProps ) {
 
 			{/* Sidebar toggle button that follows the sidebar */ }
 			<div
-				className={ `fixed top-1/2 -translate-y-1/2 z-50 transition-all duration-300 ${
+				className={ `fixed ${sidebarTabPositionString} z-50 transition-all duration-300 ${
 					open ? 'left-64' : 'left-0'
 				}` }
 			>
