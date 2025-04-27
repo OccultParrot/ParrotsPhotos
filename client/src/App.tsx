@@ -22,7 +22,7 @@ function App() {
 						<Outlet/>
 					</main>
 				</div>
-				<Footer/>
+				{/*<Footer/>*/}
 			</div>
 		)
 	}

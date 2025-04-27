@@ -1,4 +1,4 @@
-import { ChevronRight } from '@mui/icons-material';
+import { ChevronRight, VerticalAlignBottom, VerticalAlignCenter, VerticalAlignTop } from '@mui/icons-material';
 import { ReactNode, useState } from 'react';
 
 interface SidebarProps {
@@ -8,18 +8,28 @@ interface SidebarProps {
 }
 
 export function Sidebar( props: SidebarProps ) {
+	const translatePosition = ( position: string | null ): string => {
+		if (position == 'middle')
+			return 'top-1/2 -translate-y-1/2';
+		else if (position == 'bottom')
+			return 'top-full -translate-y-[150%]';
+		else
+			return 'top-0 translate-y-1/2';
+	}
+
 	const [open, setOpen] = useState(props.defaultOpen ?? false);
 
-	const sidebarTabPositionString = props.tabPosition === 'top' ? 'top-0 mt-2' : props.tabPosition === 'middle' ? 'top-1/2 -translate-y-1/2' : 'bottom-0 mb-2';
+	const [sidebarTabPosition, setSidebarTabPosition] = useState(translatePosition(props.tabPosition));
 
 	// Function to render the content of the sidebar
-	const sidebarListContent = (content: ReactNode, index: number) => {
+	const sidebarListContent = ( content: ReactNode, index: number ) => {
 		return (
-			<li className="mt-2" key={index}>
-				{content}
+			<li className="mt-2" key={ index }>
+				{ content }
 			</li>
 		);
 	}
+
 
 	return (
 		<>
@@ -31,23 +41,43 @@ export function Sidebar( props: SidebarProps ) {
 
 			{/* Sidebar content */ }
 			<div
-				className={ `fixed left-0 top-0 h-full bg-white shadow-lg z-50 transition-all duration-300 ease-in-out ${
+				className={ `fixed left-0 top-0 h-full bg-white shadow-lg z-50 transition-all duration-800 ease-in-out ${
 					open ? 'w-64 translate-x-0' : 'w-64 -translate-x-full'
 				}` }
 			>
-				<div className="p-4">
-					<h2 className="text-xl font-bold mb-4">Sidebar</h2>
-					<ul>
-						{props.content?.map((item, index) => (
-							sidebarListContent(item, index)
-						))}
+				<div className="p-4 flex flex-col h-full justify-between">
+					<div>
+						<h2 className="text-xl font-bold mb-4">Sidebar</h2>
+						<ul>
+							{ props.content?.map(( item, index ) => (
+								sidebarListContent(item, index)
+							)) }
+						</ul>
+					</div>
+
+					{/* Buttons for changing sidebar position */ }
+					<ul className="mt-4 flex flex-row justify-between">
+						{ sidebarListContent(
+							<button className="rounded-md p-2 cursor-pointer bg-gray-200 hover:bg-gray-300 transition duration-400"
+							        onClick={ () => setSidebarTabPosition('top') }><VerticalAlignTop/></button>,
+							0) }
+						{ sidebarListContent(
+							<button className="rounded-md p-2 cursor-pointer bg-gray-200 hover:bg-gray-300 transition duration-400"
+							        onClick={ () => setSidebarTabPosition('middle') }><VerticalAlignCenter/>
+							</button>,
+							1) }
+						{ sidebarListContent(
+							<button className="rounded-md p-2 cursor-pointer bg-gray-200 hover:bg-gray-300 transition duration-400"
+							        onClick={ () => setSidebarTabPosition('bottom') }><VerticalAlignBottom/>
+							</button>,
+							2) }
 					</ul>
 				</div>
 			</div>
 
 			{/* Sidebar toggle button that follows the sidebar */ }
 			<div
-				className={ `fixed ${sidebarTabPositionString} z-50 transition-all duration-300 ${
+				className={ `fixed ${ translatePosition(sidebarTabPosition) } z-50 transition-all duration-800 ${
 					open ? 'left-64' : 'left-0'
 				}` }
 			>
