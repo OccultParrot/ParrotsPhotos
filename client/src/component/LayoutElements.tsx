@@ -26,9 +26,9 @@ export function Sidebar( props: SidebarProps ) {
 	const [sidebarTabPosition, setSidebarTabPosition] = useState(translatePosition(props.tabPosition));
 
 	// Function to render the content of the sidebar
-	const sidebarListContent = ( content: ReactNode, index: number ) => {
+	const sidebarListContent = ( content: ReactNode, index: number, autoClose: boolean = true) => {
 		return (
-			<li className="mt-2" key={ index }>
+			<li className="mt-2" key={ index } onClick={autoClose ? () => setOpen(false) : undefined}>
 				{ content }
 			</li>
 		);
@@ -64,17 +64,17 @@ export function Sidebar( props: SidebarProps ) {
 						{ sidebarListContent(
 							<button className={ tabPosButtonClasses }
 							        onClick={ () => setSidebarTabPosition('top') }><VerticalAlignTop/></button>,
-							0) }
+							0, false) }
 						{ sidebarListContent(
 							<button className={ tabPosButtonClasses }
 							        onClick={ () => setSidebarTabPosition('middle') }><VerticalAlignCenter/>
 							</button>,
-							1) }
+							1, false) }
 						{ sidebarListContent(
 							<button className={ tabPosButtonClasses }
 							        onClick={ () => setSidebarTabPosition('bottom') }><VerticalAlignBottom/>
 							</button>,
-							2) }
+							2, false) }
 					</ul>
 				</div>
 			</div>
