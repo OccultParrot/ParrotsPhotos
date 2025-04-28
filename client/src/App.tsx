@@ -4,39 +4,9 @@ import { ReactElement } from "react";
 // Layout Elements
 import { Sidebar } from "./component/LayoutElements.tsx";
 
-import HomePage from "./pages/HomePage.tsx";
-import AboutPage from "./pages/AboutPage.tsx";
-import APIPage from "./pages/APIPage.tsx";
-import PhotosPage from "./pages/PhotosPage.tsx";
-
-interface RouteProps {
-	name: string;
-	route: string;
-	element: ReactElement;
-}
-
-const routes: RouteProps[] = [
-	{
-		name: 'Home',
-		route: '/',
-		element: <HomePage/>
-	},
-	{
-		name: 'Photos',
-		route: '/photos',
-		element: <PhotosPage/>
-	},
-	{
-		name: 'API',
-		route: '/api',
-		element: <APIPage/>
-	},
-	{
-		name: 'About',
-		route: '/about',
-		element: <AboutPage/>
-	}
-]
+// Config
+import { RouteProps } from "./types.ts";
+import { routes } from "./config.tsx";
 
 function App() {
 	const Layout = (): ReactElement => {
@@ -44,15 +14,17 @@ function App() {
 			<div className="flex h-screen flex-col">
 				<div className="flex h-screen flex-row">
 					<Sidebar content={ routes.map(( item: RouteProps ) => {
-						return (
-							<Link
+						return {
+							content: <Link
 								to={ item.route }
-								className="text-[var(--text-secondary)] hover:text-[var(--dark)] transition-colors duration-300"
+								className="text-[var(--text-secondary)] hover:text-[var(--dark)] hover:animate-select transition-colors duration-300"
 								key={ item.name }
 							>
 								{ item.name }
-							</Link>
-						)
+							</Link>,
+							autoClose: true
+						}
+
 					}) } tabPosition="top" tabOptions/>
 					<main className="grow">
 						<Outlet/>
