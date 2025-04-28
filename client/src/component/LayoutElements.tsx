@@ -1,12 +1,6 @@
 import { ChevronRight, VerticalAlignBottom, VerticalAlignCenter, VerticalAlignTop } from '@mui/icons-material';
 import { ReactNode, useState } from 'react';
-
-interface SidebarProps {
-	defaultOpen?: boolean;
-	content?: ReactNode[];
-	tabOptions?: boolean;
-	tabPosition: 'top' | 'middle' | 'bottom';
-}
+import { SidebarProps } from "../types.ts";
 
 export function Sidebar( props: SidebarProps ) {
 
@@ -26,9 +20,9 @@ export function Sidebar( props: SidebarProps ) {
 	const [sidebarTabPosition, setSidebarTabPosition] = useState(translatePosition(props.tabPosition));
 
 	// Function to render the content of the sidebar
-	const sidebarListContent = ( content: ReactNode, index: number, autoClose: boolean = true) => {
+	const sidebarListContent = ( content: ReactNode, index: number, autoClose: boolean = true ) => {
 		return (
-			<li className="mt-2" key={ index } onClick={autoClose ? () => setOpen(false) : undefined}>
+			<li className="mt-2" key={ index } onClick={ autoClose ? () => setOpen(false) : undefined }>
 				{ content }
 			</li>
 		);
@@ -39,7 +33,7 @@ export function Sidebar( props: SidebarProps ) {
 		<>
 			{/* Overlay that darkens the rest of the screen when sidebar is open */ }
 			<div
-				className={ `fixed inset-0 bg-yellow-950 ${ open ? "opacity-20 z-40" : "opacity-0 z-0 pointer-events-none" } transition-all duration-300` }
+				className={ `fixed inset-0 bg-yellow-950 ${ open ? "opacity-20 z-40" : "opacity-0 z-0 pointer-events-none" } transition-all duration-800` }
 				onClick={ () => setOpen(false) }
 			/>
 
@@ -54,7 +48,7 @@ export function Sidebar( props: SidebarProps ) {
 						<h2 className="text-[var(--text-primary)]  text-xl font-bold mb-4">Sidebar</h2>
 						<ul>
 							{ props.content?.map(( item, index ) => (
-								sidebarListContent(item, index)
+								sidebarListContent(item.content, index)
 							)) }
 						</ul>
 					</div>
