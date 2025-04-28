@@ -4,6 +4,7 @@ import { ReactNode, useState } from 'react';
 interface SidebarProps {
 	defaultOpen?: boolean;
 	content?: ReactNode[];
+	tabOptions?: boolean;
 	tabPosition: 'top' | 'middle' | 'bottom';
 }
 
@@ -56,7 +57,7 @@ export function Sidebar( props: SidebarProps ) {
 					</div>
 
 					{/* Buttons for changing sidebar position */ }
-					<ul className="mt-4 flex flex-row justify-between">
+					<ul className={ `${ props.tabOptions ? "" : "hidden" } mt-4 flex flex-row justify-between` }>
 						{ sidebarListContent(
 							<button className="rounded-md p-2 cursor-pointer bg-gray-200 hover:bg-gray-300 transition duration-400"
 							        onClick={ () => setSidebarTabPosition('top') }><VerticalAlignTop/></button>,
