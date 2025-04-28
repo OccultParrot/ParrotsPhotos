@@ -9,6 +9,9 @@ interface SidebarProps {
 }
 
 export function Sidebar( props: SidebarProps ) {
+
+	const tabPosButtonClasses: string = "rounded-md p-2 cursor-pointer bg-[var(--light)] hover:bg-[var(--text-secondary)] transition duration-400";
+
 	const translatePosition = ( position: string | null ): string => {
 		if (position == 'middle')
 			return 'top-1/2 -translate-y-1/2';
@@ -36,19 +39,19 @@ export function Sidebar( props: SidebarProps ) {
 		<>
 			{/* Overlay that darkens the rest of the screen when sidebar is open */ }
 			<div
-				className={ `fixed inset-0 bg-black ${ open ? "opacity-20 z-40" : "opacity-0 z-0 pointer-events-none" } transition-all duration-300` }
+				className={ `fixed inset-0 bg-yellow-950 ${ open ? "opacity-20 z-40" : "opacity-0 z-0 pointer-events-none" } transition-all duration-300` }
 				onClick={ () => setOpen(false) }
 			/>
 
 			{/* Sidebar content */ }
 			<div
-				className={ `fixed left-0 top-0 h-full bg-white shadow-lg z-50 transition-all duration-800 ease-in-out ${
+				className={ `fixed left-0 top-0 h-full bg-[var(--primary)] shadow-lg z-50 transition-all duration-800 ease-in-out ${
 					open ? 'w-64 translate-x-0' : 'w-64 -translate-x-full'
 				}` }
 			>
 				<div className="p-4 flex flex-col h-full justify-between">
 					<div>
-						<h2 className="text-xl font-bold mb-4">Sidebar</h2>
+						<h2 className="text-[var(--text-primary)]  text-xl font-bold mb-4">Sidebar</h2>
 						<ul>
 							{ props.content?.map(( item, index ) => (
 								sidebarListContent(item, index)
@@ -59,16 +62,16 @@ export function Sidebar( props: SidebarProps ) {
 					{/* Buttons for changing sidebar position */ }
 					<ul className={ `${ props.tabOptions ? "" : "hidden" } mt-4 flex flex-row justify-between` }>
 						{ sidebarListContent(
-							<button className="rounded-md p-2 cursor-pointer bg-gray-200 hover:bg-gray-300 transition duration-400"
+							<button className={ tabPosButtonClasses }
 							        onClick={ () => setSidebarTabPosition('top') }><VerticalAlignTop/></button>,
 							0) }
 						{ sidebarListContent(
-							<button className="rounded-md p-2 cursor-pointer bg-gray-200 hover:bg-gray-300 transition duration-400"
+							<button className={ tabPosButtonClasses }
 							        onClick={ () => setSidebarTabPosition('middle') }><VerticalAlignCenter/>
 							</button>,
 							1) }
 						{ sidebarListContent(
-							<button className="rounded-md p-2 cursor-pointer bg-gray-200 hover:bg-gray-300 transition duration-400"
+							<button className={ tabPosButtonClasses }
 							        onClick={ () => setSidebarTabPosition('bottom') }><VerticalAlignBottom/>
 							</button>,
 							2) }
@@ -83,7 +86,7 @@ export function Sidebar( props: SidebarProps ) {
 				}` }
 			>
 				<div
-					className="bg-gray-200 p-2 rounded-r-md cursor-pointer shadow-md"
+					className="bg-[var(--light)] hover:bg-[var(--text-secondary)] transition duration-300 p-2 rounded-r-md cursor-pointer shadow-md"
 					onClick={ () => setOpen(!open) }
 				>
 					<ChevronRight
