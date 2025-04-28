@@ -47,7 +47,7 @@ function App() {
 						return (
 							<Link
 								to={ item.route }
-								className="text-gray-800 hover:text-blue-500 transition-colors duration-300"
+								className="text-[var(--text-secondary)] hover:text-[var(--dark)] transition-colors duration-300"
 								key={ item.name }
 							>
 								{ item.name }
