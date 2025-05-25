@@ -1,5 +1,6 @@
 import { ChevronRight, VerticalAlignBottom, VerticalAlignCenter, VerticalAlignTop } from '@mui/icons-material';
 import { ReactNode, useState } from 'react';
+import { Link } from "react-router-dom";
 import { SidebarProps } from "../types.ts";
 
 export function Sidebar( props: SidebarProps ) {
@@ -53,23 +54,32 @@ export function Sidebar( props: SidebarProps ) {
 						</ul>
 					</div>
 
-					{/* Buttons for changing sidebar position */ }
-					<ul className={ `${ props.tabOptions ? "" : "hidden" } mt-4 flex flex-row justify-between` }>
-						{ sidebarListContent(
-							<button className={ tabPosButtonClasses }
-							        onClick={ () => setSidebarTabPosition('top') }><VerticalAlignTop/></button>,
-							0, false) }
-						{ sidebarListContent(
-							<button className={ tabPosButtonClasses }
-							        onClick={ () => setSidebarTabPosition('middle') }><VerticalAlignCenter/>
-							</button>,
-							1, false) }
-						{ sidebarListContent(
-							<button className={ tabPosButtonClasses }
-							        onClick={ () => setSidebarTabPosition('bottom') }><VerticalAlignBottom/>
-							</button>,
-							2, false) }
-					</ul>
+					<div>
+						<div className="mt4 text-[var(--text-secondary)] flex flex-col items-center text-sm">
+							<p>Made by <Link className="font-semibold text-[var(--text-primary)]" target="_blank"
+							                 rel="noopener noreferrer" to="https://github.com/OccultParrot">OccultParrot</Link></p>
+							<Link to="https://github.com/OccultParrot/ParrotsPhotos" target="_blank" rel="noopener noreferrer"
+							      className="text-[var(--text-secondary)] italic"> Source Code</Link>
+						</div>
+
+						{/* Buttons for changing sidebar position */ }
+						<ul className={ `${ props.tabOptions ? "" : "hidden" } mt-4 flex flex-row justify-between` }>
+							{ sidebarListContent(
+								<button className={ tabPosButtonClasses }
+								        onClick={ () => setSidebarTabPosition('top') }><VerticalAlignTop/></button>,
+								0, false) }
+							{ sidebarListContent(
+								<button className={ tabPosButtonClasses }
+								        onClick={ () => setSidebarTabPosition('middle') }><VerticalAlignCenter/>
+								</button>,
+								1, false) }
+							{ sidebarListContent(
+								<button className={ tabPosButtonClasses }
+								        onClick={ () => setSidebarTabPosition('bottom') }><VerticalAlignBottom/>
+								</button>,
+								2, false) }
+						</ul>
+					</div>
 				</div>
 			</div>
 

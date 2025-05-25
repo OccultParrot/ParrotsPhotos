@@ -2,7 +2,7 @@ import { BrowserRouter, Link, Outlet, Route, Routes } from "react-router-dom";
 import { ReactElement } from "react";
 
 // Layout Elements
-import { Sidebar } from "./component/LayoutElements.tsx";
+import { Sidebar } from "./components/LayoutElements.tsx";
 
 // Config
 import { RouteProps } from "./types.ts";
@@ -25,7 +25,7 @@ function App() {
 							autoClose: true
 						}
 
-					}) } tabPosition="top" tabOptions/>
+					}) } tabPosition="top"/>
 					<main className="grow">
 						<Outlet/>
 					</main>
