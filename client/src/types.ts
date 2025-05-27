@@ -17,3 +17,10 @@ export interface RouteProps {
 	route: string;
 	element: ReactElement;
 }
+
+export interface ThumbnailProps {
+	src: string;
+	alt: string;
+	width?: number;
+	height?: number;
+}
